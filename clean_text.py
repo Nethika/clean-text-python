@@ -2,6 +2,8 @@ import re, string
 from string import ascii_lowercase
 import spacy
 import random
+from bs4 import BeautifulSoup 
+
 
 # read name list from file
 with open('names.txt') as f:
@@ -142,8 +144,20 @@ def replace_names(text):
     return text
 
 
+def remove_html_tags(html_text):  
+    soup = BeautifulSoup(html_text,features="html5lib")
+    raw = soup.get_text()
+    return raw
+
+
+
 if __name__ == "__main__":
         text = "### ï»¿project gutenberg's; , 7 by arthur conan doyle\n\nthis ebook is for the use of anyone anywhere at no cost and with\nalmost no restrictions whatsoever.  Hej då. hej d\xe5! TODO: fill > out + the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model def window_transform_text(text, window_size, step_size):"
         text = cleaned_text2(text)
+        print("cleaned text:")
+        print (text)
+
+        html_text = '<a href="http://example.com/">\nI linked to <i>example.com</i>\n</a>'
+        text = remove_html_tags(html_text)
         print("cleaned text:")
         print (text)
