@@ -94,6 +94,24 @@ def remove_hashtags_handles(text):
                 words.append(word)
     return ' '.join(words)
 
+def replace_handles1(text):
+    
+    words = []
+    for word in text.split():
+        word = word.strip()
+        if word:
+            if word[0] == '@':
+                word = '@example_com'
+            words.append(word)
+    return ' '.join(words)
+
+def replace_handles2(text): 
+    handles_regex = re.compile('(@\w+)', re.I)
+    handles = re.findall(handles_regex, text)
+    for handle in handles:
+        text = text.replace(handle, '@example_com')  
+    return text
+
 def replace_names(text):
         
     """
