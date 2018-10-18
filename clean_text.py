@@ -95,18 +95,22 @@ def remove_hashtags_handles(text):
     return ' '.join(words)
 
 def replace_handles1(text):
-    
+    # Looses . , : at the end of the @word.
+    # Doesn't catch '@username83'
     words = []
     for word in text.split():
         word = word.strip()
         if word:
-            if word[0] == '@':
+            print (word)
+            if len(word) != 1 and word[0] == '@':
                 word = '@example_com'
+                print(word)
+            print("")
             words.append(word)
     return ' '.join(words)
 
 def replace_handles2(text): 
-    handles_regex = re.compile('(@\w+)', re.I)
+    handles_regex = re.compile('(?<=^|(?<=[^a-zA-Z0-9-_\.]))(@[A-Za-z0-9-_]+)', re.DOTALL) 
     handles = re.findall(handles_regex, text)
     for handle in handles:
         text = text.replace(handle, '@example_com')  
