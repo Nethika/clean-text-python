@@ -112,9 +112,44 @@ def replace_handles1(text):
 def replace_handles2(text): 
     handles_regex = re.compile('(?<=^|(?<=[^a-zA-Z0-9-_\.]))(@[A-Za-z0-9-_]+)', re.DOTALL) 
     handles = re.findall(handles_regex, text)
+    print("[TWITTER HANDLES REPLACED]:",handles)
     for handle in handles:
         text = text.replace(handle, '@example_com')  
     return text
+
+def replace_dot_handler(text):
+    handles_regex = re.compile('(?<=^|(?<=[^a-zA-Z0-9-_\.]))(\.@[A-Za-z0-9-_]+)', re.DOTALL) 
+    handles = re.findall(handles_regex, text)
+    print("[TWITTER HANDLES REPLACED]:",handles)
+    for handle in handles:
+        text = text.replace(handle, '@example_com')  
+    return text
+
+def replace_reddit_user(text):
+    handles_regex = re.compile('u/[A-Za-z0-9_-]+', re.DOTALL) 
+    handles = re.findall(handles_regex, text)
+    print("[REDDIT HANDLES REPLACED]:",handles)
+    for handle in handles:
+        text = text.replace(handle, '@example_com')  
+    return text
+
+def replace_subreddit(text):
+    handles_regex = re.compile('r/[A-Za-z0-9_-]+', re.DOTALL) 
+    handles = re.findall(handles_regex, text)
+    print("[REDDIT HANDLES REPLACED]:",handles)
+    for handle in handles:
+        text = text.replace(handle, '@example_com')  
+    return text
+
+def replace_email(text):
+    email_regex = re.compile("[\w.-]+@[\w.-]+\.\w+", re.DOTALL) 
+    #email_regex = re.compile('[\w\.-]+@[\w\.-]+\.\w+', re.DOTALL) #same as above.
+    emails = re.findall(email_regex, text)
+    print("[EMAILS REPLACED]:",emails)
+    for email in emails:
+        text = text.replace(email, 'example@example_com')  
+    return text
+
 
 def replace_names(text):
         
@@ -172,6 +207,18 @@ def remove_html_tags(html_text):
     return raw
 
 
+def replace_digits(text):
+    """
+    Replace each digit with a '5'
+    """
+    text = re.sub('[0-9]', '5', text)
+    return text
+
+def replace_newlines_tabs(text):
+    text = re.sub('[\t\n\r]', ' ', text)
+    #fix whitespaces
+    text = ' '.join(text.split())
+    return text
 
 if __name__ == "__main__":
         text = "### ï»¿project gutenberg's; , 7 by arthur conan doyle\n\nthis ebook is for the use of anyone anywhere at no cost and with\nalmost no restrictions whatsoever.  Hej då. hej d\xe5! TODO: fill > out + the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model def window_transform_text(text, window_size, step_size):"
